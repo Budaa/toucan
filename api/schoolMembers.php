@@ -24,7 +24,7 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     //Creating Member Object
     $Member = new Member($row['id'], $row['name'], $row['email']);
-    //Pushing member object into $return arry
+    //Pushing member object into $return array
     array_push($return, $Member);
     unset($Member);
   }
