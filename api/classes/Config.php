@@ -2,7 +2,7 @@
 class Config {
 //TEST SERVER
    public $host = "127.0.0.1";
-   public $username = "username";
+   public $username = "buda";
    public $password = "password";
    public $db = "toucan";
 }
