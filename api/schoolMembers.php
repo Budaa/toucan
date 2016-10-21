@@ -4,6 +4,8 @@ include 'classes/Config.php';
 include 'classes/Member.php';
 $Config = new Config;
 $return = [];
+
+//TODO VALIDATE USER INPUT!
 $school_id = $_GET['school'];
 
 //Conncecting to database
