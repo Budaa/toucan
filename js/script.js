@@ -8,14 +8,12 @@ console.log(api)
 
 
 
-console.time();
 
-console.time('someFunction');
 let oReq = new XMLHttpRequest();
 oReq.onload = function (e) {
     var result = JSON.parse(e.target.response)
     console.log(result)
-    console.timeEnd();
+
 }
 oReq.open('GET',api + 'schoolMembers.php', true);
 
