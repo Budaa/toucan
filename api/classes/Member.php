@@ -1,14 +1,15 @@
 <?php
 /**
- * Members class
+ * Member class
  *
  */
-class Members
+class Member
 {
-  public $name, $email;
+  public $id, $name, $email;
 
-  function __construct($name, $email)
+  function __construct($id, $name, $email)
   {
+    $this->id = $id;
     $this->name = $name;
     $this->email = $email;
   }
