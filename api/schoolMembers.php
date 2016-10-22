@@ -5,8 +5,12 @@ include 'classes/Member.php';
 $Config = new Config;
 $return = [];
 
-//TODO VALIDATE USER INPUT!
-$school_id = $_GET['school'];
+
+//TODO check valid id's in the database
+if(preg_match('/[^[1-6]]+/', $_GET['name'])){
+  die(json_encode("Only valid school id numer allowed!"));
+}
+$school_id = trim($_GET['school']);
 
 //Conncecting to database
 $conn = new mysqli($Config->host, $Config->username, $Config->password, $Config->db);
