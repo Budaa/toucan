@@ -1,6 +1,9 @@
 <?php
   include 'classes/Config.php';
   include 'classes/Member.php';
+
+//BASIC Variables
+  $Config = new Config;
 //DATA VALIDATION
 
 //If there is any data missing
@@ -27,4 +30,17 @@
   $name = ucwords( strtolower( trim( $_GET['name'] ) ) );
   $email = strtolower( trim( $_GET['email'] ) );
   echo $name . "<br>" . $email;
+
+
+//DATABASE CONNECTION
+  $conn = new mysqli($Config->host, $Config->username, $Config->password, $Config->db);
+  //check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "INSERT INTO members ('name', 'email') VALUES ('$name', '$email')";
+  if($result = $conn->query($sql)) {
+    //TODO RETURN MEMBER OBJECT
+  }
 ?>
