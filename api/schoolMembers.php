@@ -7,7 +7,7 @@ $return = [];
 
 
 //TODO check valid id's in the database
-if(preg_match('/[^[1-6]]+/', $_GET['name'])){
+if(preg_match('/[^[1-6]]+/', $_GET['school'])){
   die(json_encode("Only valid school id numer allowed!"));
 }
 $school_id = trim($_GET['school']);
