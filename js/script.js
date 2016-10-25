@@ -3,6 +3,19 @@
 var local = document.location.href,
     api = local + 'api/';
 
+//prototype
+
+//Sanitize input
+String.prototype.escape = function() {
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return this.replace(/[&<>]/g, function(tag) {
+        return tagsToReplace[tag] || tag;
+    });
+};
 
 //add list of schools to DOM elemetn
 var appendSchools = function (id, name) {
@@ -53,7 +66,7 @@ var schoolMembers = function (id, cb) {
     return cb(result);
   }else{
     //IF not connect to API, get fresh data and save it to the session
-    //Create XMLHR object
+    //Create XHR object
     var oReq = new XMLHttpRequest();
 
     //Onload function
@@ -82,7 +95,16 @@ var schoolMembers = function (id, cb) {
   var result;
 
   //Query cache storage
-  var cache;
+  var cache;String.prototype.escape = function() {
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return this.replace(/[&<>]/g, function(tag) {
+        return tagsToReplace[tag] || tag;
+    });
+};
 
   //Session data
   var session;
@@ -103,7 +125,7 @@ var schoolMembers = function (id, cb) {
     });
   }else{
     //IF not, connect to API, get fresh data and save it to the session
-    //Create XMLHR object
+    //Create XHR object
     var oReq = new XMLHttpRequest();
 
     //Onload function
@@ -136,4 +158,48 @@ schoolNode.onchange = function(){
   schoolMembers(schoolNode.value, function(value){
     displayMembers(value);
   });
+}
+
+//add member function
+var addNewMember = function(name, email, school){
+  //sanitize user input
+  name = name.escape();
+  email = email.escape();
+  school = school.escape();
+  var notifications = document.getElementById('notifications');
+  //Create XHR request
+  var oReq = new XMLHttpRequest();
+
+  //Onload function
+  oReq.onload = function (e) {
+    //Parse result to JSON
+    var result = JSON.parse(e.target.response)
+    if(result === 1){
+      //Informing user
+      notifications.innerHTML = 'New member added to database!';
+      notifications.style.background = 'green';
+
+      //Clear fields
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+
+      //Clear cache
+      sessionStorage.removeItem('cache');
+
+      //add new member to the list
+      var membersDiv = document.getElementById('members');
+      var memberDiv = document.createElement("div");
+      memberDiv.setAttribute("class", "member");
+      memberDiv.innerHTML = name + "<br>" + email + "<br><br>";
+      membersDiv.insertBefore(memberDiv, membersDiv.childNodes[0]);
+    }else {
+      notifications.innerHTML = result;
+      notifications.style.background = 'red';
+    }
+
+  }
+  //Open API url
+  oReq.open('GET',api + 'addMember.php?name=' + name+ '&email=' + email + '&school=' + school, true);
+  //Send request
+  oReq.send();
 }
