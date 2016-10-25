@@ -13,9 +13,15 @@ var appendSchools = function (id, name) {
   select.appendChild(option);
 }
 
-var displayMembers = function (members) {
-  members.forEach(function (element){
-    console.log(element)
+var displayMembers = function (member) {
+  var membersDiv = document.getElementById('members');
+  //Clean members
+  membersDiv.innerHTML = '';
+  member.forEach(function (element){
+    var memberDiv = document.createElement("div");
+    memberDiv.setAttribute("class", "member");
+    memberDiv.innerHTML = element.name + "<br>" + element.email + "<br><br>";
+    membersDiv.appendChild(memberDiv);
   });
 }
 
