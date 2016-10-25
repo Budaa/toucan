@@ -4,7 +4,7 @@ var local = document.location.href,
     api = local + 'api/';
 
 
-//Move school list to DOM
+//add list of schools to DOM elemetn
 var appendSchools = function (id, name) {
   var select = document.getElementById('school');
   var option = document.createElement("option");
@@ -13,6 +13,8 @@ var appendSchools = function (id, name) {
   select.appendChild(option);
 }
 
+
+//Display school members inside DOM
 var displayMembers = function (member) {
   var membersDiv = document.getElementById('members');
   //Clean members
