@@ -57,7 +57,7 @@
   $result = $conn->query($sql);
 
   //DIE if school doesnt exist
-  if(mysqli_num_rows($result) > 0){
+  if(mysqli_num_rows($result) == 0){
     die("Error: provided school id doesnt exist in our database!");
   }
 //ADDING NEW RECORDS
