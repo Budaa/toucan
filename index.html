@@ -3,20 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>Toucan demo</title>
-    <style type="text/css" rel="stylesheet" src="style.css"></style>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-  	<h2>Add new user</h2>
+    <header>
+    	<h2>ADD MEMBER</h2>
+    </header>
 
-		Full name: <input type="text" id="name" placeholder="eg: George Carlin" /><br />
-		E-mail: <input type="text" id="email" placeholder="example@example.com"/><br />
-    School: <select id="school">
-      <option disabled selected value> -- Select an option -- </option>
-    </select>
+    <section id="notifications"></section>
 
-		<button onclick="addNewMember(document.getElementById('name').value, document.getElementById('email').value, document.getElementById('school').value);">Add</button>
-    <div id="notifications"></div>
-    <div id="members"></div>
+    <section id="form">
+      <div>
+    		<input type="text" id="name" placeholder="Full name" /><br />
+    		<input type="text" id="email" placeholder="Email"/><br />
+        <select id="school">
+          <option disabled selected value> -- Select a school -- </option>
+        </select>
+        <br>
+        <button onclick="addNewMember(document.getElementById('name').value, document.getElementById('email').value, document.getElementById('school').value);">SUBMIT</button>
+      </div>
+    </section>
+    <h3 id="listTitle">Active students for selected school</h3>
+    <section id="members"></section>
+
   </body>
   <script src="js/script.js"></script>
 </html>
