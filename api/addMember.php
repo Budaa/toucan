@@ -39,7 +39,7 @@
   $conn = new mysqli($Config->host, $Config->username, $Config->password, $Config->db);
   //check connection
   if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode("Connection failed: " . $conn->connect_error));
   }
 
 //VALIDATION ON DATABASE
@@ -49,7 +49,7 @@
 
   //DIE if email already exist
   if(mysqli_num_rows($result) > 0){
-    die("Error: provided email addres already exist in our database!");
+    die(json_encode("Error: provided email addres already exist in our database!"));
   }
 
   //Check if school id exist in database
@@ -58,7 +58,7 @@
 
   //DIE if school doesnt exist
   if(mysqli_num_rows($result) == 0){
-    die("Error: provided school id doesnt exist in our database!");
+    die(json_encode("Error: provided school id doesnt exist in our database!"));
   }
 //ADDING NEW RECORDS
   //insert new member
@@ -76,10 +76,10 @@
     if( $conn->query($sql) === TRUE) {
       echo 1;
     }else {
-      echo "Error: " . $conn->error;
+      echo json_encode("Error: " . $conn->error);
     }
   }else {
-    echo "Error: " . $conn->error;
+    echo json_encode("Error: " . $conn->error);
   }
 
 ?>
