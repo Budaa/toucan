@@ -2,7 +2,7 @@
 //CONFIG
 var local = document.location.href,
     api = local + 'api/';
-console.log(api)
+
 
 
 var result;
