@@ -179,7 +179,7 @@ var addNewMember = function(name, email, school){
     if(result === 1){
       //Informing user
       notifications.innerHTML = 'New member added to database!';
-      notifications.style.background = 'green';
+      notifications.style.background = '#8BC34A';
 
       //Clear fields
       document.getElementById('name').value = '';
@@ -196,7 +196,7 @@ var addNewMember = function(name, email, school){
       membersDiv.insertBefore(memberDiv, membersDiv.childNodes[0]);
     }else {
       notifications.innerHTML = result;
-      notifications.style.background = 'red';
+      notifications.style.background = '#F44336';
     }
 
   }
