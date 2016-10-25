@@ -4,10 +4,26 @@ var local = document.location.href,
     api = local + 'api/';
 
 
+//Move school list to DOM
+var appendSchools = function (id, name) {
+  var select = document.getElementById('school');
+  var option = document.createElement("option");
+  option.setAttribute("value", id);
+  option.innerHTML = name;
+  select.appendChild(option);
+}
+
+var displayMembers = function (members) {
+  members.forEach(function (element){
+    console.log(element)
+  });
+}
+
+
 //GETING members for choosen school
-(function(){
+var schoolMembers = function (id, cb) {
   var result;
-  var school_id = 2;
+  var school_id = id;
 
   //Query cache storage
   var cache = [];
@@ -21,13 +37,12 @@ var local = document.location.href,
   }
 
   //Checking if there is specific record in chache
-  if(typeof session[school_id] !== 'undefined'){
+  if(typeof session[school_id] !== 'undefined' && session[school_id] === 'null'){
     //Use session storage to define result
     result = session[school_id];
 
-
-    console.log("data from cache: ");
-    console.log(result);
+    console.log('resturn cahed');
+    return cb(result);
   }else{
     //IF not connect to API, get fresh data and save it to the session
     //Create XMLHR object
@@ -45,15 +60,14 @@ var local = document.location.href,
       sessionStorage.setItem('cache', JSON.stringify(cache));
 
       //Display result
-      console.log("This is fresh data: ");
-      console.log(result);
+      return cb(result);
     }
     //Open API url
     oReq.open('GET',api + 'schoolMembers.php?school=' + school_id, true);
     //Send request
     oReq.send();
   }
-}());
+};
 
 //Geting school list
 (function(){
@@ -65,13 +79,6 @@ var local = document.location.href,
   //Session data
   var session;
 
-  var appendSchools = function (id, name) {
-    var select = document.getElementById('school');
-    var option = document.createElement("option");
-    option.setAttribute("value", id);
-    option.innerHTML = name;
-    select.appendChild(option);
-  }
   //checking if there is any session cache
   if(sessionStorage.getItem('schoolList')){
     session = JSON.parse(sessionStorage.getItem('schoolList'));
@@ -113,3 +120,12 @@ var local = document.location.href,
     oReq.send();
   }
 }())
+
+//school watcher
+var schoolNode = document.getElementById("school");
+schoolNode.onchange = function(){
+  //Download school member on change
+  schoolMembers(schoolNode.value, function(value){
+    displayMembers(value);
+  });
+}
