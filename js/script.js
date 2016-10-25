@@ -65,6 +65,13 @@ var local = document.location.href,
   //Session data
   var session;
 
+  var appendSchools = function (id, name) {
+    var select = document.getElementById('school');
+    var option = document.createElement("option");
+    option.setAttribute("value", id);
+    option.innerHTML = name;
+    select.appendChild(option);
+  }
   //checking if there is any session cache
   if(sessionStorage.getItem('schoolList')){
     session = JSON.parse(sessionStorage.getItem('schoolList'));
@@ -75,9 +82,10 @@ var local = document.location.href,
     //Use session storage to define result
     result = session;
 
-
-    console.log("data from cache: ");
-    console.log(result);
+      //Update select field
+    result.forEach(function (element) {
+      appendSchools(element.id, element.name);
+    });
   }else{
     //IF not, connect to API, get fresh data and save it to the session
     //Create XMLHR object
@@ -94,9 +102,10 @@ var local = document.location.href,
       //Add cachef result to sessionStorage
       sessionStorage.setItem('schoolList', JSON.stringify(cache));
 
-      //Display result
-      console.log("This is fresh data: ");
-      console.log(result);
+      //Update select field
+      result.forEach(function (element) {
+        appendSchools(element.id, element.name);
+      });
     }
     //Open API url
     oReq.open('GET',api + 'schoolList.php', true);
