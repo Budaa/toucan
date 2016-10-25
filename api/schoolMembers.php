@@ -6,7 +6,6 @@ $Config = new Config;
 $return = [];
 
 
-//TODO check valid id's in the database
 if(preg_match('/[^[0-9]]+/', $_GET['school'])){
   die(json_encode("Only valid school id numer allowed!"));
 }
@@ -18,6 +17,15 @@ $conn = new mysqli($Config->host, $Config->username, $Config->password, $Config-
 // Checking Connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
+}
+
+//Check if school id exist in database
+$sql = "SELECT id FROM school WHERE id=$school_id";
+$result = $conn->query($sql);
+
+//DIE if school doesnt exist
+if(mysqli_num_rows($result) > 0){
+  die("Error: provided school id doesnt exist in our database!");
 }
 
 //Query to get names of
