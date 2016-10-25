@@ -10,6 +10,11 @@
   if(!isset($_GET['name']) || !isset($_GET['email']) || !isset($_GET['school'])){
     die(json_encode("You didin't provide enough data to create new member"));
   }
+  //If name isn't empty
+  if($_GET['name'] == null) {
+    die(json_encode("You didin't provide your name"));
+  }
+
 
 //If email is invalid:
   if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)){
