@@ -38,6 +38,8 @@ var displayMembers = function (member) {
     memberDiv.innerHTML = element.name + "<br>" + element.email + "<br><br>";
     membersDiv.appendChild(memberDiv);
   });
+  var listTitle = document.getElementById('listTitle');
+  listTitle.style.visibility = 'visible';
 }
 
 
@@ -190,7 +192,7 @@ var addNewMember = function(name, email, school){
       var membersDiv = document.getElementById('members');
       var memberDiv = document.createElement("div");
       memberDiv.setAttribute("class", "member");
-      memberDiv.innerHTML = name + "<br>" + email + "<br><br>";
+      memberDiv.innerHTML = name + "<br>" + email;
       membersDiv.insertBefore(memberDiv, membersDiv.childNodes[0]);
     }else {
       notifications.innerHTML = result;
